@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Book-Catalog</title>
@@ -7,14 +7,13 @@
 </head>
 <body>
 
-<form th:action="@{/}" method="post">
-    <input type="text" name="keyword" placeholder="Search..."/>
-    <input type="submit" value="Search">
-</form>
 
-<a href="/cart" th:text="'Go to Cart (' + ${cartSize} + ')'"></a>
+<table th:if="${cart}">
 
-<table th:if="${searchResult}">
+    <form th:action="@{/cart/clear}" method="post">
+        <input type="submit" value="Clear cart">
+    </form>
+
     <thead>
     <tr>
         <th>ISBN</th>
@@ -26,24 +25,26 @@
     </thead>
 
     <tbody>
-    <tr th:each="book : ${searchResult}">
+    <tr th:each="book : ${cart}">
         <td th:text="${book.isbn()}"></td>
         <td th:text="${book.author()}"></td>
         <td th:text="${book.title()}"></td>
         <td th:text="${book.description()}"></td>
         <td>
-            <form th:action="@{/cart/add}" method="post">
+            <form th:action="@{/cart/remove}" method="post">
                 <input type="hidden" name="isbn" th:value="${book.isbn()}">
-                <input type="submit" value="Add to cart">
+                <input type="submit" value="Remove">
             </form>
         </td>
     </tr>
     </tbody>
 </table>
 
-<p th:if="${searchResult.length == 0}">
-    No books were found...
+<p th:if="${cart.size() == 0}">
+    Cart is empty, please buy some books.
 </p>
+
+<a href="/">Back to catalog</a>
 
 </body>
 </html>
