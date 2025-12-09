@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Book-Catalog</title>
+    <link rel="stylesheet" th:href="@{/style.css}">
+</head>
+<body>
+
+
+<table th:if="${cart}">
+
+    <form th:action="@{/cart/clear}" method="post">
+        <input type="submit" value="Clear cart">
+    </form>
+
+    <thead>
+    <tr>
+        <th>ISBN</th>
+        <th>Author</th>
+        <th>Title</th>
+        <th>Description</th>
+        <th>Action</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <tr th:each="book : ${cart}">
+        <td th:text="${book.isbn()}"></td>
+        <td th:text="${book.author()}"></td>
+        <td th:text="${book.title()}"></td>
+        <td th:text="${book.description()}"></td>
+        <td>
+            <form th:action="@{/cart/remove}" method="post">
+                <input type="hidden" name="isbn" th:value="${book.isbn()}">
+                <input type="submit" value="Remove">
+            </form>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+<p th:if="${cart.size() == 0}">
+    Cart is empty, please buy some books.
+</p>
+
+<a href="/">Back to catalog</a>
+
+</body>
+</html>
