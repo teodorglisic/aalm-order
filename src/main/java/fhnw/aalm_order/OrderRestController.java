@@ -16,6 +16,12 @@ import java.util.Arrays;
 @Controller
 public class OrderRestController {
 
+    private final ShoppingCartService shoppingCartService;
+
+    public OrderRestController(ShoppingCartService shoppingCartService) {
+        this.shoppingCartService = shoppingCartService;
+    }
+
     private final RestClient restClient = RestClient.builder().build();
 
     private static final String SEARCH_URL = "http://localhost:8080/api/books/search?keyword=";
@@ -29,6 +35,7 @@ public class OrderRestController {
                 .body(BookDto[].class);
 
         model.addAttribute("searchResult", allBooks);
+        model.addAttribute("cartSize", this.shoppingCartService.getCart().size());
         return "search";
     }
 
@@ -47,18 +54,38 @@ public class OrderRestController {
                 .body(BookDto[].class);
 
         model.addAttribute("searchResult", search);
-
+        model.addAttribute("cartSize", this.shoppingCartService.getCart().size());
         return "search";
     }
 
     @PostMapping("/cart/add")
-    public String bookToCart(@RequestParam String isbn, Model model) {
+    public String addBookToCart(@RequestParam String isbn, Model model) {
         String finalUrl = SEARCH_URL + isbn;
         BookDto[] book = restClient.get().uri(finalUrl).retrieve().body(BookDto[].class);
-
         assert book != null;
-        System.out.println(book[0]);
+        this.shoppingCartService.addBookToCart(book[0]);
         return "redirect:/";
+    }
+
+    @PostMapping("/cart/remove")
+    public String removeBookFromCart(@RequestParam String isbn, Model model) {
+        String finalUrl = SEARCH_URL + isbn;
+        BookDto[] book = restClient.get().uri(finalUrl).retrieve().body(BookDto[].class);
+        assert book != null;
+        this.shoppingCartService.removeBookFromCart(book[0]);
+        return "redirect:/cart";
+    }
+
+    @PostMapping("/cart/clear")
+    public String clearCart() {
+        this.shoppingCartService.clearCart();
+        return "redirect:/cart";
+    }
+
+    @GetMapping("/cart")
+    public String getCart(Model model) {
+        model.addAttribute("cart", this.shoppingCartService.getCart());
+        return "cart";
     }
 }
 
