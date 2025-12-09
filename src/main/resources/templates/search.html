@@ -6,10 +6,12 @@
 </head>
 <body>
 
-    <input type="text"/>
-    <input type="submit" value="Search">
+    <form th:action="@{/}" method="post">
+        <input type="text" name="keyword" placeholder="Search..."/>
+        <input type="submit" value="Search">
+    </form>
 
-    <table>
+    <table th:if="${searchResult}">
         <thead>
         <tr>
             <th>ISBN</th>
@@ -20,7 +22,7 @@
         </thead>
 
         <tbody>
-        <tr th:each="book : ${books}">
+        <tr th:each="book : ${searchResult}">
             <td th:text="${book.isbn()}"></td>
             <td th:text="${book.author()}"></td>
             <td th:text="${book.title()}"></td>

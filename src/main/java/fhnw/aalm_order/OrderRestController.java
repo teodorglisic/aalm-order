@@ -1,21 +1,52 @@
 package fhnw.aalm_order;
 
+import com.fasterxml.jackson.databind.ser.Serializers;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.client.RestClient;
+import org.springframework.web.util.UriComponentsBuilder;
+
+import java.util.Arrays;
 
 @Controller
 public class OrderRestController {
 
+    private final RestClient restClient = RestClient.builder().build();
 
-    private final String BASE_URL = "http://localhost:8080/api/books";
-    private final RestClient restClient = RestClient.builder().baseUrl(BASE_URL).build();
+    private static final String SEARCH_URL = "http://localhost:8080/api/books/search?keyword=";
 
-    @GetMapping
+    @GetMapping("/")
     public String clientAllBooks(Model model) {
-        BookDto[] allBooks = restClient.get().retrieve().body(BookDto[].class);
-        model.addAttribute("books", allBooks);
+
+        BookDto[] allBooks = restClient.get()
+                .uri(SEARCH_URL)   // No keywords, backend returns all
+                .retrieve()
+                .body(BookDto[].class);
+
+        model.addAttribute("searchResult", allBooks);
+        return "search";
+    }
+
+    @PostMapping()
+    public String clientSearchBooks(@RequestParam String keyword, Model model) {
+        String[] keywords = keyword.split(" ");
+        String finalUrl = SEARCH_URL;
+
+        for (String key: keywords) {
+            finalUrl += key + "&keyword=";
+        }
+
+        BookDto[] search = restClient.get()
+                .uri(finalUrl)
+                .retrieve()
+                .body(BookDto[].class);
+
+        model.addAttribute("searchResult", search);
+
         return "search";
     }
 }
+
