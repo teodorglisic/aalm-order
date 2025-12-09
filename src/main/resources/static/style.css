@@ -16,7 +16,7 @@ form {
     max-width: 800px; /* Nicht breiter als 800px */
     display: flex;
     gap: 10px; /* Abstand zwischen Feld und Button */
-    margin-bottom: 40px; /* Abstand zur Tabelle */
+    margin-bottom: 10px; /* Abstand zur Tabelle */
 }
 
 input[type="text"] {
@@ -34,7 +34,7 @@ input[type="text"]:focus {
     box-shadow: 0 0 5px rgba(0, 123, 255, 0.2);
 }
 
-input[type="submit"] {
+input[type="submit"], a {
     padding: 12px 24px;
     font-size: 16px;
     background-color: #007bff; /* Modernes Blau */
@@ -46,7 +46,7 @@ input[type="submit"] {
     transition: background-color 0.2s;
 }
 
-input[type="submit"]:hover {
+input[type="submit"]:hover, a:hover {
     background-color: #0056b3; /* Dunkleres Blau beim Drüberfahren */
 }
 
@@ -110,4 +110,9 @@ p {
     text-align: center;
     width: 100%;
     max-width: 800px;
+}
+
+a {
+    text-decoration: none;
+    margin: 20px;;
 }

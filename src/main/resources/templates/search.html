@@ -12,6 +12,8 @@
     <input type="submit" value="Search">
 </form>
 
+<a href="/cart" th:text="'Go to Cart (' + ${cartSize} + ')'"></a>
+
 <table th:if="${searchResult}">
     <thead>
     <tr>
@@ -19,6 +21,7 @@
         <th>Author</th>
         <th>Title</th>
         <th>Description</th>
+        <th>Action</th>
     </tr>
     </thead>
 
@@ -39,7 +42,7 @@
 </table>
 
 <p th:if="${searchResult.length == 0}">
-    Es wurden keine Bücher gefunden.
+    No books were found...
 </p>
 
 </body>
