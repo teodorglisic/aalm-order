@@ -1,0 +1,113 @@
+/* 1. Grundeinstellungen & Typografie */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Moderne System-Schriftarten */
+    background-color: #f4f7f6; /* Helles, augenfreundliches Grau/Blau */
+    color: #333;
+    margin: 0;
+    padding: 40px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Zentriert alles horizontal */
+}
+
+/* 2. Das Suchformular */
+form {
+    width: 100%;
+    max-width: 800px; /* Nicht breiter als 800px */
+    display: flex;
+    gap: 10px; /* Abstand zwischen Feld und Button */
+    margin-bottom: 40px; /* Abstand zur Tabelle */
+}
+
+input[type="text"] {
+    flex-grow: 1; /* Nimmt den meisten Platz ein */
+    padding: 12px 16px;
+    font-size: 16px;
+    border: 1px solid #ddd;
+    border-radius: 8px; /* Abgerundete Ecken */
+    outline: none;
+    transition: border-color 0.3s;
+}
+
+input[type="text"]:focus {
+    border-color: #007bff; /* Blau beim Klicken */
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.2);
+}
+
+input[type="submit"] {
+    padding: 12px 24px;
+    font-size: 16px;
+    background-color: #007bff; /* Modernes Blau */
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background-color 0.2s;
+}
+
+input[type="submit"]:hover {
+    background-color: #0056b3; /* Dunkleres Blau beim Drüberfahren */
+}
+
+/* 3. Die Tabelle (Modern Table Design) */
+table {
+    width: 100%;
+    max-width: 1000px;
+    border-collapse: collapse; /* Entfernt doppelte Rahmen */
+    background-color: white;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05); /* Leichter Schatten für "Tiefe" */
+    border-radius: 8px;
+    overflow: hidden; /* Damit die Ecken auch rund bleiben */
+}
+
+thead {
+    background-color: #f8f9fa; /* Leichter Kontrast für den Kopf */
+    border-bottom: 2px solid #e9ecef;
+}
+
+th {
+    text-align: left;
+    padding: 16px;
+    font-weight: 600;
+    color: #495057;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    letter-spacing: 0.05em;
+}
+
+td {
+    padding: 16px;
+    border-bottom: 1px solid #eee;
+    vertical-align: top; /* Text startet oben in der Zelle */
+    line-height: 1.5;
+}
+
+/* Hover-Effekt für Zeilen */
+tbody tr:hover {
+    background-color: #f1f3f5;
+}
+
+/* Spezifische Spalten-Anpassungen (Optional) */
+td:first-child {
+    font-family: monospace; /* ISBN sieht in Monospace gut aus */
+    color: #666;
+}
+
+td:nth-child(3) {
+    font-weight: 600; /* Buchtitel fett */
+    color: #000;
+}
+
+/* 4. Die "Keine Ergebnisse" Nachricht */
+p {
+    background-color: #fff3cd; /* Gelblicher Warn-Hintergrund */
+    color: #856404;
+    padding: 15px;
+    border-radius: 6px;
+    border: 1px solid #ffeeba;
+    margin-top: 20px;
+    text-align: center;
+    width: 100%;
+    max-width: 800px;
+}

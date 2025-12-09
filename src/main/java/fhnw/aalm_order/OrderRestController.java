@@ -5,10 +5,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.client.RestClient;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import java.awt.print.Book;
 import java.util.Arrays;
 
 @Controller
@@ -47,6 +49,16 @@ public class OrderRestController {
         model.addAttribute("searchResult", search);
 
         return "search";
+    }
+
+    @PostMapping("/cart/add")
+    public String bookToCart(@RequestParam String isbn, Model model) {
+        String finalUrl = SEARCH_URL + isbn;
+        BookDto[] book = restClient.get().uri(finalUrl).retrieve().body(BookDto[].class);
+
+        assert book != null;
+        System.out.println(book[0]);
+        return "redirect:/";
     }
 }
 
