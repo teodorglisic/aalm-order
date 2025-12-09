@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Book-Catalog</title>
+</head>
+<body>
+
+    <form th:action="@{/}" method="post">
+        <input type="text" name="keyword" placeholder="Search..."/>
+        <input type="submit" value="Search">
+    </form>
+
+    <table th:if="${searchResult}">
+        <thead>
+        <tr>
+            <th>ISBN</th>
+            <th>Author</th>
+            <th>Title</th>
+            <th>Description</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr th:each="book : ${searchResult}">
+            <td th:text="${book.isbn()}"></td>
+            <td th:text="${book.author()}"></td>
+            <td th:text="${book.title()}"></td>
+            <td th:text="${book.description()}"></td>
+        </tr>
+        </tbody>
+    </table>
+
+</body>
+</html>
