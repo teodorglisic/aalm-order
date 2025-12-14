@@ -8,8 +8,8 @@
 <body>
 
 <form th:action="@{/}" method="post">
-    <input type="text" name="keyword" placeholder="Search..."/>
-    <input type="submit" value="Search">
+    <input type="text" name="keyword" placeholder="Search..." id="search-input"/>
+    <input type="submit" value="Search" id="search-submit">
 </form>
 
 <a href="/cart" th:text="'Go to Cart (' + ${cartSize} + ')'"></a>
